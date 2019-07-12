@@ -1,0 +1,168 @@
+Michoac·n        
+        HGR 1 MORELIA        
+        Telemedicina_05        
+        OncologÌa MÈdica        
+        Primera vez        
+        04/07/2019 08:00:00 a.m.        
+        04/07/2019 08:30:00 a.m.        
+        Jalisco        
+        HES OBLATOS        
+        Telemedicina_05        
+        OncologÌa MÈdica        
+        Primera vez        
+        04/07/2019 08:00:00 a.m.        
+        04/07/2019 08:30:00 a.m.        
+        8721122        
+        J FELIX        
+        GOVEA        
+        ARRIAGA        
+        991419090        
+        HECTOR RAMON        
+        JAUREGUI        
+        GARCIA        
+        0315988576        
+        1M1998SA        
+        OSCAR        
+        ARREOLA        
+        SOTELO        
+        28/08/1998 12:00:00 a.m.        
+        AESO980828QM9EIFA1        
+        Masculino        
+        Tratamiento especializado        
+        Tumor maligno del sistema nervioso central, sin otra especificaciÛn
+---
+
+Michoac·n        
+        HGR 1 MORELIA        
+        Telemedicina_07        
+        CardiologÌa Pedi·trica        
+        Primera vez        
+        15/07/2019 08:00:00 a.m.        
+        15/07/2019 08:30:00 a.m.        
+        Jalisco        
+        HPED OBLATOS        
+        Telemedicina_07        
+        CardiologÌa Pedi·trica        
+        Primera vez        
+        15/07/2019 08:00:00 a.m.        
+        15/07/2019 08:30:00 a.m.        
+        10870415        
+        JAVIER        
+        NAVARRETE        
+        GARCIA        
+        11406771        
+        ANA RUTH        
+        HERNANDEZ        
+        CERVANTES        
+        5304880782        
+        3M2011OR        
+        JESUS NEFTALI        
+        ANGUIANO        
+        ROCHA        
+        16/11/2011 12:00:00 a.m.        
+        AURJ111116SHAO9PC6        
+        Masculino        
+        Tratamiento especializado        
+        MalformaciÛn congÈnita del corazÛn, no especificada
+---
+
+Michoac·n        
+        HGR 1 MORELIA        
+        Telemedicina_10        
+        GastroenterologÌa Pedi·trica        
+        Primera vez        
+        09/07/2019 08:00:00 a.m.        
+        09/07/2019 08:30:00 a.m.        
+        Jalisco        
+        HPED OBLATOS        
+        Telemedicina_10        
+        GastroenterologÌa Pedi·trica        
+        Primera vez        
+        09/07/2019 08:00:00 a.m.        
+        09/07/2019 08:30:00 a.m.        
+        10870415        
+        JAVIER        
+        NAVARRETE        
+        GARCIA        
+        11406771        
+        ANA RUTH        
+        HERNANDEZ        
+        CERVANTES        
+        5394700477        
+        6F2008PE        
+        NANCY ROCIO        
+        ROMERO        
+        SANCHEZ        
+        24/12/2008 12:00:00 a.m.        
+        ROSN081224BTF4HRC0        
+        Femenino        
+        Tratamiento especializado        
+        Rinitis alÈrgica, no especificada
+---
+
+Jalisco        
+        HGZMF 42 PTO. VALLARTA        
+        Telemedicina_10        
+        GastroenterologÌa Pedi·trica        
+        Primera vez        
+        09/07/2019 08:30:00 a.m.        
+        09/07/2019 09:00:00 a.m.        
+        Jalisco        
+        HPED OBLATOS        
+        Telemedicina_10        
+        GastroenterologÌa Pedi·trica        
+        Primera vez        
+        09/07/2019 08:30:00 a.m.        
+        09/07/2019 09:00:00 a.m.        
+        99265495        
+        JORGE HUMBERTO        
+        VALDIVIA        
+        FLORES        
+        11406771        
+        ANA RUTH        
+        HERNANDEZ        
+        CERVANTES        
+        5505880669        
+        3M2018OR        
+        FRANCO MATHEO        
+        CASTILLON        
+        RODRIGUEZ        
+        27/08/2018 12:00:00 a.m.        
+        CARR180827ZZECCTC7        
+        Masculino        
+        ComplementaciÛn diagnÛstica        
+        Alergia no especificada
+----
+
+Michoac·n        
+        HGR 1 MORELIA        
+        Telemedicina_09        
+        UrologÌa Pedi·trica        
+        Primera vez        
+        15/07/2019 10:00:00 a.m.        
+        15/07/2019 10:30:00 a.m.        
+        Jalisco        
+        HPED OBLATOS        
+        Telemedicina_09        
+        UrologÌa Pedi·trica        
+        Primera vez        
+        15/07/2019 10:00:00 a.m.        
+        15/07/2019 10:30:00 a.m.        
+        9424261        
+        JOSE ANDRES        
+        ALVARADO        
+        MACIAS        
+        11406771        
+        ANA RUTH        
+        HERNANDEZ        
+        CERVANTES        
+        5307881710        
+        3M2013OR        
+        JONATHAN ALEXIS        
+        RAMIREZ        
+        MARIN        
+        09/04/2013 12:00:00 a.m.        
+        RAMR130409W9LG7PC5        
+        Masculino        
+        Tratamiento especializado        
+        Hipoplasia renal, bilateral
