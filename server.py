@@ -17,7 +17,7 @@ def webhook():
       #reqest the txt of the message id
       inc_msg_txt = api_webexTeams.messages.get(inc_msg_id).text
 
-      print inc_msg_txt
+      print(inc_msg_txt)
 
       return '', 200
   else:
