@@ -3,10 +3,34 @@ from flask import Flask, request, abort
 from webexteamssdk import WebexTeamsAPI
 import json
 import os
+import pymongo
 
 app = Flask(__name__)
 api_webexTeams = WebexTeamsAPI()
 BOT_PERSON_EMAIL = os.environ['WEBEXTEAMS_BOT_PERSON_EMAIL']
+MONGO_URL = os.environ['MONGODB_URI']
+
+SEED_DATA = [
+    {
+        'decade': '1970s',
+        'artist': 'Debby Boone',
+        'song': 'You Light Up My Life',
+        'weeksAtOne': 10
+    },
+    {
+        'decade': '1980s',
+        'artist': 'Olivia Newton-John',
+        'song': 'Physical',
+        'weeksAtOne': 10
+    },
+    {
+        'decade': '1990s',
+        'artist': 'Mariah Carey',
+        'song': 'One Sweet Day',
+        'weeksAtOne': 16
+    }
+]
+
 
 @app.route('/webhook',methods=['POST'])
 def webhook():
@@ -19,6 +43,20 @@ def webhook():
 
       print(BOT_PERSON_EMAIL)
       print(inc_person_email)
+
+      client = pymongo.MongoClient(MONGO_URL)
+      db = client.get_default_database()
+      songs = db['songs']
+      songs.insert_many(SEED_DATA)
+      query = {'song': 'One Sweet Day'}
+      songs.update(query, {'$set': {'artist': 'Mariah Carey ft. Boyz II Men'}})
+      cursor = songs.find({'weeksAtOne': {'$gte': 10}}).sort('decade', 1)
+      for doc in cursor:
+        print ('In the %s, %s by %s topped the charts for %d straight weeks.' %
+               (doc['decade'], doc['song'], doc['artist'], doc['weeksAtOne']))
+      db.drop_collection('songs')
+      client.close()
+      
       #check if this is a message sent by the bot 
       if inc_person_email==BOT_PERSON_EMAIL:
         return '', 200
