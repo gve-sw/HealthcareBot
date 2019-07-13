@@ -17,6 +17,8 @@ def webhook():
       inc_room_id = incoming_message['data']['roomId']
       inc_person_id = incoming_message['data']['personId']
 
+      print(BOT_PERSON_ID)
+      print(inc_person_id)
       #check if this is a message sent by the bot 
       if inc_person_id==BOT_PERSON_ID:
         return '', 200
