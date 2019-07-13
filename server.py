@@ -6,7 +6,7 @@ import os
 
 app = Flask(__name__)
 api_webexTeams = WebexTeamsAPI()
-BOT_PERSON_ID = os.environ['HOME']
+BOT_PERSON_ID = os.environ['WEBEXTEAMS_BOT_PERSON_ID']
 
 @app.route('/webhook',methods=['POST'])
 def webhook():
@@ -16,7 +16,7 @@ def webhook():
       inc_msg_id  = incoming_message['data']['id']
       inc_room_id = incoming_message['data']['roomId']
       inc_person_id = incoming_message['data']['personId']
-      
+
       #check if this is a message sent by the bot 
       if inc_person_id==BOT_PERSON_ID:
         return '', 200
