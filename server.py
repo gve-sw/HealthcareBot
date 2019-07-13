@@ -44,19 +44,6 @@ def webhook():
       print(BOT_PERSON_EMAIL)
       print(inc_person_email)
 
-      client = pymongo.MongoClient(MONGO_URL)
-      db = client.get_default_database()
-      songs = db['songs']
-      songs.insert_many(SEED_DATA)
-      query = {'song': 'One Sweet Day'}
-      songs.update(query, {'$set': {'artist': 'Mariah Carey ft. Boyz II Men'}})
-      cursor = songs.find({'weeksAtOne': {'$gte': 10}}).sort('decade', 1)
-      for doc in cursor:
-        print ('In the %s, %s by %s topped the charts for %d straight weeks.' %
-               (doc['decade'], doc['song'], doc['artist'], doc['weeksAtOne']))
-      db.drop_collection('songs')
-      client.close()
-      
       #check if this is a message sent by the bot 
       if inc_person_email==BOT_PERSON_EMAIL:
         return '', 200
@@ -75,4 +62,18 @@ def webhook():
       abort(400)
 
 if __name__ == '__main__':
-   app.run()
+
+      client = pymongo.MongoClient(MONGO_URL)
+      db = client.get_default_database()
+      songs = db['songs']
+      songs.insert_many(SEED_DATA)
+      query = {'song': 'One Sweet Day'}
+      songs.update(query, {'$set': {'artist': 'Mariah Carey ft. Boyz II Men'}})
+      cursor = songs.find({'weeksAtOne': {'$gte': 10}}).sort('decade', 1)
+      for doc in cursor:
+        print ('In the %s, %s by %s topped the charts for %d straight weeks.' %
+               (doc['decade'], doc['song'], doc['artist'], doc['weeksAtOne']))
+      db.drop_collection('songs')
+      client.close()
+      
+      app.run()
