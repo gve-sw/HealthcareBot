@@ -31,6 +31,10 @@ SEED_DATA = [
     }
 ]
 
+client = pymongo.MongoClient(MONGO_URL)
+db = client.get_default_database()
+requests_log = db['requests_log']
+messages_log = db['messages_log']
 
 
 @app.route('/webhook',methods=['POST'])
@@ -67,11 +71,6 @@ def webhook():
 
 if __name__ == '__main__':
     try :
-        client = pymongo.MongoClient(MONGO_URL)
-        db = client.get_default_database()
-        requests_log = db['requests_log']
-        messages_log = db['messages_log']
-        
         app.run()
     except:
       #log the exceptionq
