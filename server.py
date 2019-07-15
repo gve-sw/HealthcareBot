@@ -37,6 +37,23 @@ db = client.get_default_database()
 requests_log = db['requests_log']
 messages_log = db['messages_log']
 
+def convert_to_dict(obj):
+  """
+  A function takes in a custom object and returns a dictionary representation of the object.
+  This dict representation includes meta data such as the object's module and class names.
+  """
+  
+  #  Populate the dictionary with object meta data 
+  obj_dict = {
+    "__class__": obj.__class__.__name__,
+    "__module__": obj.__module__
+  }
+  
+  #  Populate the dictionary with object properties
+  obj_dict.update(obj.__dict__)
+  
+  return obj_dict
+
 
 @app.route('/webhook',methods=['POST'])
 def webhook():
@@ -62,7 +79,7 @@ def webhook():
 
         #reqest the txt of the message id
         inc_msg = api_webexTeams.messages.get(inc_msg_id)
-        s= json.dumps(inc_msg.__dict__)
+        s= json.dumps(inc_msg,default=convert_to_dict)
         print(s)
         s['_id']=s['id']
         messages_log.insert_one(s)
