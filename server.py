@@ -92,7 +92,7 @@ def webhook():
           print(response.text)
 
 
-        api_webexTeams.messages.create(inc_room_id,text='respose'+inc_msg.text)
+        api_webexTeams.messages.create(inc_room_id,text='respose'+response.text)
 
         #print(inc_msg_txt)
 
