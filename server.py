@@ -5,6 +5,7 @@ import json
 import os
 import pymongo
 
+
 app = Flask(__name__)
 api_webexTeams = WebexTeamsAPI()
 BOT_PERSON_EMAIL = os.environ['WEBEXTEAMS_BOT_PERSON_EMAIL']
@@ -61,12 +62,13 @@ def webhook():
 
         #reqest the txt of the message id
         inc_msg = api_webexTeams.messages.get(inc_msg_id)
-        print(inc_msg)
-        inc_msg['_id']=inc_msg['id']
-        messages_log.insert_one(inc_msg)
+        s= json.dumps(inc_msg.__dict__)
+        print(s)
+        s['_id']=s['id']
+        messages_log.insert_one(s)
 
 
-        api_webexTeams.messages.create(inc_room_id,text='respose'+inc_msg.text)
+        api_webexTeams.messages.create(inc_room_id,text='respose'+s.text)
 
         #print(inc_msg_txt)
 
