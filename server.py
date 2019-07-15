@@ -88,7 +88,7 @@ def webhook():
         #check if message has file attched:
         if 'files' in message_json:
           #print(message_json)
-          response = requests.get(message_json['files'][0])
+          response = requests.get(message_json['files'][0],headers={"Authorization":"Bearer "+os.environ['WEBEX_TEAMS_ACCESS_TOKEN']})
           print(response.text)
 
 
