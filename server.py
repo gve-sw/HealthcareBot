@@ -81,9 +81,13 @@ def webhook():
         inc_msg = api_webexTeams.messages.get(inc_msg_id)
 
         #insert into Mogoddb
-        s= json.loads(json.dumps(inc_msg,default=convert_to_dict))
-        s['_id']=s['id']
-        messages_log.insert_one(s)
+        message_json= json.loads(json.dumps(inc_msg,default=convert_to_dict))
+        message_json['_id']=message_json['id']
+        messages_log.insert_one(message_json)
+
+        #check if message has file attched:
+        if message_json['files']:
+          print(message_json)
 
 
         api_webexTeams.messages.create(inc_room_id,text='respose'+inc_msg.text)
