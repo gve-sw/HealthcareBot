@@ -86,7 +86,7 @@ def webhook():
         messages_log.insert_one(message_json)
 
         #check if message has file attched:
-        if message_json['files']:
+        if files in message_json:
           print(message_json)
 
 
