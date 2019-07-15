@@ -49,7 +49,7 @@ def webhook():
       inc_person_email = incoming_message['data']['personEmail']
 
       incoming_message['_id']=incoming_message['data']['id']
-      requests_log.insert_one(incoming_message)
+      #requests_log.insert_one(incoming_message)
       #print(BOT_PERSON_EMAIL)
       #print(inc_person_email)
 
@@ -61,6 +61,7 @@ def webhook():
 
         #reqest the txt of the message id
         inc_msg = api_webexTeams.messages.get(inc_msg_id)
+        print(inc_msg)
         inc_msg['_id']=inc_msg['id']
         messages_log.insert_one(inc_msg)
 
