@@ -52,7 +52,7 @@ def convert_to_dict(obj):
   #  Populate the dictionary with object properties
   obj_dict.update(obj.__dict__)
   
-  return obj_dict
+  return obj_dict['_json_data']
 
 
 @app.route('/webhook',methods=['POST'])
@@ -79,7 +79,7 @@ def webhook():
 
         #reqest the txt of the message id
         inc_msg = api_webexTeams.messages.get(inc_msg_id)
-        s= json.dumps(inc_msg,default=convert_to_dict)
+        s= convert_to_dict(inc_msg)
         print(s)
         s['_id']=s['id']
         messages_log.insert_one(s)
