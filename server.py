@@ -60,7 +60,7 @@ def webhook():
   if request.method == 'POST':
       incoming_message  = request.json
       #print(incoming_message)
-      requests_log.insert_one(incoming_message)
+      #requests_log.insert_one(incoming_message)
       #parse post reqest for message id and room id
       inc_msg_id  = incoming_message['data']['id']
       inc_room_id = incoming_message['data']['roomId']
@@ -80,13 +80,13 @@ def webhook():
         #reqest the txt of the message id
         inc_msg = api_webexTeams.messages.get(inc_msg_id)
 
+        #insert into Mogoddb
         s= json.loads(json.dumps(inc_msg,default=convert_to_dict))
-        print(s)
         s['_id']=s['id']
         messages_log.insert_one(s)
 
 
-        api_webexTeams.messages.create(inc_room_id,text='respose'+s.text)
+        api_webexTeams.messages.create(inc_room_id,text='respose'+inc_msg.text)
 
         #print(inc_msg_txt)
 
