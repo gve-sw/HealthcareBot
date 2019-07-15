@@ -91,8 +91,10 @@ def webhook():
           response = requests.get(message_json['files'][0],headers={"Authorization":"Bearer "+os.environ['WEBEX_TEAMS_ACCESS_TOKEN']})
           record_json={}
           for record in response.text:
+              print(record)
               record_json={}
               line = record.split('|')
+              print(line)
               record_json['field0']=line[0]
               record_json['field1']=line[1]
               record_json['field2']=line[2]
