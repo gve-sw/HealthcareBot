@@ -78,8 +78,8 @@ def webhook():
         
 
         #reqest the txt of the message id
-        inc_msg = api_webexTeams.messages.get(inc_msg_id)
-        s= convert_to_dict(inc_msg)
+        inc_msg = api_webexTeams.messages.get(inc_msg_id).__dict__
+        s= inc_msg['_json_data']
         print(s)
         s['_id']=s['id']
         messages_log.insert_one(s)
