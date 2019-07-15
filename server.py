@@ -4,7 +4,7 @@ from webexteamssdk import WebexTeamsAPI
 import json
 import os
 import pymongo
-import urllib2
+import requests
 
 app = Flask(__name__)
 api_webexTeams = WebexTeamsAPI()
@@ -88,8 +88,8 @@ def webhook():
         #check if message has file attched:
         if 'files' in message_json:
           #print(message_json)
-          data = urllib2.urlopen(message_json['files'][0])
-          print(data)
+          response = requests.get(message_json['files'][0])
+          print(response.text)
 
 
         api_webexTeams.messages.create(inc_room_id,text='respose'+inc_msg.text)
