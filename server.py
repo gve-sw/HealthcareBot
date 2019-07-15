@@ -52,8 +52,6 @@ def webhook():
       #print(BOT_PERSON_EMAIL)
       #print(inc_person_email)
 
-
-
       #check if this is a message sent by the bot 
       if inc_person_email==BOT_PERSON_EMAIL:
         return '', 200
@@ -80,4 +78,5 @@ if __name__ == '__main__':
       #log the exceptionq
       print('exception')
     finally:
-        client.close()
+      print('closing DB')
+      client.close()
