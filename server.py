@@ -91,7 +91,7 @@ def webhook():
           response = requests.get(message_json['files'][0],headers={"Authorization":"Bearer "+os.environ['WEBEX_TEAMS_ACCESS_TOKEN']})
           record_json={}
           print(response.text)
-          for record in response.text:
+          for record in response.text.split('\n'):
               print(record)
               record_json={}
               line = record.split('|')
