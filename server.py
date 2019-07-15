@@ -130,8 +130,8 @@ def webhook():
               else:
                 #file io error at line N
                 print('file io error') 
-              print(json.dumps(record_json))
-              api_webexTeams.messages.create(inc_room_id,text='respose'+json.dumps(record_json))
+              print(json.dumps(record_json, ensure_ascii=False).encode('utf8'))
+              api_webexTeams.messages.create(inc_room_id,text='respose'+json.dumps(record_json, ensure_ascii=False).encode('utf8'))
         #print(inc_msg_txt)
 
         return '', 200
