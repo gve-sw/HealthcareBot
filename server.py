@@ -154,7 +154,7 @@ def webhook():
             print(today_appointments)
             i=0
             for appointment in today_appointments:
-              formated_str='# Appointement :'+str(i)
+              formated_str='# Appointement :'+str(i+1)+'\n'
               for key in appointment:
                 if key=='_id': 
                   continue
@@ -162,6 +162,8 @@ def webhook():
               print(formated_str)
               api_webexTeams.messages.create(inc_room_id,markdown=formated_str)
               i=i+1
+            if i==0:
+              api_webexTeams.messages.create(inc_room_id,markdown='> No appoinetement at this day')
 
         return '', 200
   else:
