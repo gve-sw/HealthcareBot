@@ -57,7 +57,7 @@ def convert_to_dict(obj):
   return obj_dict['_json_data']
 
 def date_to_json(obj):
-    if isinstance(obj, datetime.datetime):
+    if isinstance(obj, datetime):
         return obj.__str__()
 
 @app.route('/webhook',methods=['POST'])
