@@ -145,8 +145,8 @@ def webhook():
             date_match = re.search('\d{4}-\d{2}-\d{2}', inc_msg.text)
             #check for errors 
             #TODO add timezone everywhere
-            start_date= datetime.strptime(date_match.group()+ ' 06:00:00 am','%Y-%m-%d %I:%M:%S %p')
-            end_date  = datetime.strptime(date_match.group()+ ' 10:00:00 pm','%Y-%m-%d %I:%M:%S %p')
+            start_date= datetime.strptime(date_match.group()+ ' 06:00:00 am','%Y-%m-%d %I:%M:%S %p') #TODO dose this need to be set as global params ?
+            end_date  = datetime.strptime(date_match.group()+ ' 10:00:00 pm','%Y-%m-%d %I:%M:%S %p') #TODO dose this need to be set as global params ?
             #print(start_date)
             #print(end_date)
 
@@ -155,9 +155,11 @@ def webhook():
 
             formated_str=''
             for key in today_appointments:
-              formated_str+= key + '==' + str(today_appointments[key]) +'\n'
+              if key=='_id': 
+                continue
+              formated_str+= '* **'+key+'** ==' + str(today_appointments[key]) +'\n'
             print(formated_str)
-
+            api_webexTeams.messages.create(inc_room_id,markdown=formated_str)
 
         return '', 200
   else:
