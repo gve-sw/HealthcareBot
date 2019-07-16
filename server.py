@@ -156,7 +156,7 @@ def webhook():
             formated_str=''
             for key in today_appointments:
               formated_str+= key + '==' + today_appointments[key] +'\n'
-            print formated_str
+            print(formated_str)
 
 
         return '', 200
