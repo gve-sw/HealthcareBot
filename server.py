@@ -150,16 +150,18 @@ def webhook():
             #print(start_date)
             #print(end_date)
 
-            today_appointments = apointnements_coll.find_one({'date_start': {'$lt': end_date, '$gte': start_date}})
+            today_appointments = apointnements_coll.find({'date_start': {'$lt': end_date, '$gte': start_date}})
             print(today_appointments)
-
-            formated_str=''
-            for key in today_appointments:
-              if key=='_id': 
-                continue
-              formated_str+= '* {:20} : {} \n'.format('**'+key+'**',str(today_appointments[key]))  #'* **'+key+'** ==' + str(today_appointments[key]) +'\n'
-            print(formated_str)
-            api_webexTeams.messages.create(inc_room_id,markdown=formated_str)
+            i=0
+            for appointment in today_appointments:
+              formated_str='# Appointement :'+str(i)
+              for key in appointment:
+                if key=='_id': 
+                  continue
+                formated_str+= '* {:20} : {} \n'.format('**'+key+'**',str(appointment[key]))  #'* **'+key+'** ==' + str(appointment[key]) +'\n'
+              print(formated_str)
+              api_webexTeams.messages.create(inc_room_id,markdown=formated_str)
+              i=i+1
 
         return '', 200
   else:
