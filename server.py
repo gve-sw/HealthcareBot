@@ -147,11 +147,16 @@ def webhook():
             #TODO add timezone everywhere
             start_date= datetime.strptime(date_match.group()+ ' 06:00:00 am','%Y-%m-%d %I:%M:%S %p')
             end_date  = datetime.strptime(date_match.group()+ ' 10:00:00 pm','%Y-%m-%d %I:%M:%S %p')
-            print(start_date)
-            print(end_date)
+            #print(start_date)
+            #print(end_date)
 
             today_appointments = apointnements_coll.find_one({'date_start': {'$lt': end_date, '$gte': start_date}})
             print(today_appointments)
+
+            formated_str=''
+            for key in today_appointments:
+              formated_str+= key + '==' + today_appointments[key] +'\n'
+            print formated_str
 
 
         return '', 200
