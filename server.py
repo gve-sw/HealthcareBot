@@ -157,7 +157,7 @@ def webhook():
             for key in today_appointments:
               if key=='_id': 
                 continue
-              formated_str+= '* **{:20}** : {} \n'.format(key,str(today_appointments[key]))  #'* **'+key+'** ==' + str(today_appointments[key]) +'\n'
+              formated_str+= '* {:20} : {} \n'.format('**'+key+'**',str(today_appointments[key]))  #'* **'+key+'** ==' + str(today_appointments[key]) +'\n'
             print(formated_str)
             api_webexTeams.messages.create(inc_room_id,markdown=formated_str)
 
