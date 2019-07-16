@@ -13,27 +13,6 @@ api_webexTeams = WebexTeamsAPI()
 BOT_PERSON_EMAIL = os.environ['WEBEXTEAMS_BOT_PERSON_EMAIL']
 MONGO_URL = os.environ['MONGODB_URI']
 
-SEED_DATA = [
-    {
-        'decade': '1970s',
-        'artist': 'Debby Boone',
-        'song': 'You Light Up My Life',
-        'weeksAtOne': 10
-    },
-    {
-        'decade': '1980s',
-        'artist': 'Olivia Newton-John',
-        'song': 'Physical',
-        'weeksAtOne': 10
-    },
-    {
-        'decade': '1990s',
-        'artist': 'Mariah Carey',
-        'song': 'One Sweet Day',
-        'weeksAtOne': 16
-    }
-]
-
 client = pymongo.MongoClient(MONGO_URL)
 db = client.get_default_database()
 requests_log = db['requests_log']
@@ -94,6 +73,8 @@ def webhook():
         #check if message has file attched:
         if ('files' in message_json) and '/process' in inc_msg.text:
           #print(message_json)
+
+          #TODO Controle file name for duplicates 
           response = requests.get(message_json['files'][0],headers={"Authorization":"Bearer "+os.environ['WEBEX_TEAMS_ACCESS_TOKEN']})
           record_json={}
           #print(response.text)
@@ -165,6 +146,7 @@ def webhook():
               i=i+1
             if i==0:
               api_webexTeams.messages.create(inc_room_id,markdown='> No appoinetement at this day')
+            print(datetime.datetime.now())
 
         return '', 200
   else:
