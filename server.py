@@ -36,6 +36,7 @@ client = pymongo.MongoClient(MONGO_URL)
 db = client.get_default_database()
 requests_log = db['requests_log']
 messages_log = db['messages_log']
+apointnements_coll = db['apointnements_coll']
 
 def convert_to_dict(obj):
   """
@@ -100,8 +101,8 @@ def webhook():
                   record_json['field2']=line[2]
                   record_json['field3']=line[3]
                   record_json['field4']=line[4]
-                  record_json['field5']=line[5]
-                  record_json['field6']=line[6]
+                  record_json['date_start']=datetime.strptime(line[5].replace('.',''), '%d/%m/%Y %I:%M:%S %p')
+                  record_json['date_end']=datetime.strptime(line[6].replace('.',''), '%d/%m/%Y %I:%M:%S %p')
                   record_json['field7']=line[7]
                   record_json['field8']=line[8]
                   record_json['field9']=line[9]
@@ -127,6 +128,7 @@ def webhook():
                   record_json['field29']=line[29]  
                   record_json['field30']=line[30]
                   record_json['field31']=line[31]   
+                  apointnements_coll.insert_one(record_json)
               else:
                 #file io error at line N
                 print('file io error') 
