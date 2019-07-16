@@ -139,7 +139,8 @@ def webhook():
                 print('file io error') 
               #print(record_json)
               print(json.dumps(record_json,default=date_to_json, ensure_ascii=False))
-              api_webexTeams.messages.create(inc_room_id,text='respose'+json.dumps(record_json,default=date_to_json, ensure_ascii=False))
+              #api_webexTeams.messages.create(inc_room_id,text='respose'+json.dumps(record_json,default=date_to_json, ensure_ascii=False))
+          api_webexTeams.messages.create(inc_room_id,text='file processed')
         #print(inc_msg_txt)
         if '/today' in inc_msg.text:
             date_match = re.search('\d{4}-\d{2}-\d{2}', inc_msg.text)
