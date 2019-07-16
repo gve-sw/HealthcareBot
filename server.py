@@ -106,8 +106,8 @@ def webhook():
                   record_json['field2']=line[2]
                   record_json['field3']=line[3]
                   record_json['field4']=line[4]
-                  record_json['date_start']=datetime.strptime(line[5].replace('.',''), '%d/%m/%Y %I:%M:%S %p')
-                  record_json['date_end']=datetime.strptime(line[6].replace('.',''), '%d/%m/%Y %I:%M:%S %p')
+                  record_json['date_start']=datetime.strptime(line[5].replace('.',''), '%d/%m/%Y %I:%M:%S %p')#TODO add timezone everywhere
+                  record_json['date_end']=datetime.strptime(line[6].replace('.',''), '%d/%m/%Y %I:%M:%S %p')#TODO add timezone everywhere
                   record_json['field7']=line[7]
                   record_json['field8']=line[8]
                   record_json['field9']=line[9]
@@ -144,12 +144,14 @@ def webhook():
         if '/today' in inc_msg.text:
             date_match = re.search('\d{4}-\d{2}-\d{2}', inc_msg.text)
             #check for errors 
+            #TODO add timezone everywhere
             start_date= datetime.strptime(date_match.group()+ ' 06:00:00 am','%Y-%m-%d %I:%M:%S %p')
             end_date  = datetime.strptime(date_match.group()+ ' 10:00:00 pm','%Y-%m-%d %I:%M:%S %p')
             print(start_date)
             print(end_date)
 
-            #today_appointments = apointnements_coll.find()
+            today_appointments = apointnements_coll.findone({'date_start': {'$lt': end_date, '$gte': start_date}})
+            print(today_appointments)
 
 
         return '', 200
