@@ -131,7 +131,7 @@ def webhook():
                   record_json['field28']=line[28]
                   record_json['field29']=line[29]  
                   record_json['field30']=line[30]
-                  record_json['field31']=line[31]   
+                  record_json['field31']=line[31]
                   apointnements_coll.insert_one(record_json)
               else:
                 #file io error at line N
@@ -140,6 +140,16 @@ def webhook():
               print(json.dumps(record_json,default=date_to_json, ensure_ascii=False))
               api_webexTeams.messages.create(inc_room_id,text='respose'+json.dumps(record_json,default=date_to_json, ensure_ascii=False))
         #print(inc_msg_txt)
+        if '/today' in inc_msg.text:
+            date_match = re.search('\d{4}-\d{2}-\d{2}', inc_msg.text)
+            #check for errors 
+            start_date= datetime.strptime(date_match.group()+ '06:00:00 am','%d-%m-%Y %I:%M:%S %p')
+            end_date  = datetime.strptime(date_match.group()+ '10:00:00 pm','%d-%m-%Y %I:%M:%S %p')
+            print(start_date)
+            print(end_date)
+
+            today_appointments = apointnements_coll.find()
+
 
         return '', 200
   else:
