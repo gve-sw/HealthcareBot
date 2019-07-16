@@ -150,7 +150,7 @@ def webhook():
             print(start_date)
             print(end_date)
 
-            today_appointments = apointnements_coll.findone({'date_start': {'$lt': end_date, '$gte': start_date}})
+            today_appointments = apointnements_coll.find_one({'date_start': {'$lt': end_date, '$gte': start_date}})
             print(today_appointments)
 
 
