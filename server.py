@@ -6,6 +6,7 @@ import os
 import pymongo
 import requests
 from datetime import datetime
+import re
 
 app = Flask(__name__)
 api_webexTeams = WebexTeamsAPI()
@@ -148,7 +149,7 @@ def webhook():
             print(start_date)
             print(end_date)
 
-            today_appointments = apointnements_coll.find()
+            #today_appointments = apointnements_coll.find()
 
 
         return '', 200
