@@ -146,7 +146,7 @@ def webhook():
               i=i+1
             if i==0:
               api_webexTeams.messages.create(inc_room_id,markdown='> No appoinetement at this day')
-            print(datetime.datetime.now())
+            print(datetime.now())
 
         return '', 200
   else:
