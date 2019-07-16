@@ -144,8 +144,8 @@ def webhook():
         if '/today' in inc_msg.text:
             date_match = re.search('\d{4}-\d{2}-\d{2}', inc_msg.text)
             #check for errors 
-            start_date= datetime.strptime(date_match.group()+ ' 06:00:00 am','%d-%m-%Y %I:%M:%S %p')
-            end_date  = datetime.strptime(date_match.group()+ ' 10:00:00 pm','%d-%m-%Y %I:%M:%S %p')
+            start_date= datetime.strptime(date_match.group()+ ' 06:00:00 am','%Y-%m-%d %I:%M:%S %p')
+            end_date  = datetime.strptime(date_match.group()+ ' 10:00:00 pm','%Y-%m-%d %I:%M:%S %p')
             print(start_date)
             print(end_date)
 
