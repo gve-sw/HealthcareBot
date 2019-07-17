@@ -7,6 +7,7 @@ import pymongo
 import requests
 from datetime import datetime
 import re
+import time
 
 app = Flask(__name__)
 api_webexTeams = WebexTeamsAPI()
@@ -123,7 +124,7 @@ def webhook():
               #api_webexTeams.messages.create(inc_room_id,text='respose'+json.dumps(record_json,default=date_to_json, ensure_ascii=False))
           api_webexTeams.messages.create(inc_room_id,text='file processed')
         #print(inc_msg_txt)
-        if '/today' in inc_msg.text:
+        if '/today' in inc_msg.text: #if some one is cheking there today or tomo appointements
             date_match = re.search('\d{4}-\d{2}-\d{2}', inc_msg.text)
             #check for errors 
             #TODO add timezone everywhere
@@ -148,6 +149,13 @@ def webhook():
               api_webexTeams.messages.create(inc_room_id,markdown='> No appoinetement at this day')
             print(datetime.now())
             print(datetime.timezone)
+        if '/set_shedual' in inc_msg.text: 
+            date_match     = re.search('\s(\d{2}\:\d{2}\s?(?:AM|PM|am|pm))', inc_msg.text)#timezone ?
+            #treshhold_date = datetime.strptime(date_match.group(),'%Y-%m-%d %I:%M:%S %p')
+            print(date_match.group())
+            print(datetime.now())
+            print(time.tzname)
+
 
         return '', 200
   else:

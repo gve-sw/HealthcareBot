@@ -1,5 +1,20 @@
 #from datetime import datetime
+import datetime
+import pytz
+import time 
 
+d = datetime.datetime.now()
+print(d)
+print(d.tzinfo)
+timezone = pytz.timezone("CET")
+d_aware = timezone.localize(d)
+print(d_aware)
+print(d_aware.tzinfo)
+
+
+print(time.tzname)
+
+"""
 import re,datetime
 
 s = "I have a meeting on 2018-12-10 in New York"
@@ -8,7 +23,7 @@ print(match.group())
 print(type(match.group()))
 date = datetime.datetime.strptime(match.group(), '%Y-%m-%d').date()
 print(date)
-
+"""
 
 """
 my_date="04/07/2019 08:00:00 p.m.".replace('.','')
