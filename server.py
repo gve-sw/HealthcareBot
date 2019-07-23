@@ -192,6 +192,7 @@ def send_shedual(date_match):
       
       print(today_appointments)
       i=0
+      api_webexTeams.messages.create(toPersonEmail=doctor['email'],markdown="Hi **"+doctor['email']+"** here is a list of your appointements today!")
       for appointment in today_appointments:
         formated_str='# Appointement :'+str(i+1)+'\n'
         for key in appointment:
