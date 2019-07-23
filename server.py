@@ -159,7 +159,7 @@ def webhook():
             print(time.tzname)
         if '/add_doctor' in inc_msg.text: 
             print(inc_msg.text)
-            input_add     = (re.search('\s\((.*?)\)', inc_msg.text)).group().split(';')
+            input_add     = (re.search('\s(.*?);(.*?)\)', inc_msg.text)).group(1).split(';')
             record_json={}
             record_json['name']=input_add[0]
             record_json['email']=input_add[1]
