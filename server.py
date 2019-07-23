@@ -8,6 +8,7 @@ import requests
 from datetime import datetime
 import re
 import time
+from flask_apscheduler import APScheduler
 
 app = Flask(__name__)
 api_webexTeams = WebexTeamsAPI()
@@ -161,11 +162,36 @@ def webhook():
   else:
       abort(400)
 
+class Config(object):
+    JOBS = [
+        {
+            'id': 'job1',
+            'func': 'jobs:job1',
+            'args': (1, 2),
+            'trigger': 'interval',
+            'seconds': 10
+        }
+    ]
+
+    SCHEDULER_API_ENABLED = True
+
+
+def job1(a, b):
+    print("this is the job runing")
+
 if __name__ == '__main__':
     try :
+        app.config.from_object(Config())
+
+        scheduler = APScheduler()
+        # it is also possible to enable the API directly
+        # scheduler.api_enabled = True     
+        scheduler.init_app(app)   
+        scheduler.start()
+
         app.run()
     except:
-      #log the exceptionq
+      #log the exceptions
       print('exception')
     finally:
       print('closing DB')
