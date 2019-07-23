@@ -8,7 +8,7 @@ import requests
 from datetime import datetime
 import re
 import time
-from flask_apscheduler import APScheduler
+
 
 app = Flask(__name__)
 api_webexTeams = WebexTeamsAPI()
@@ -20,6 +20,7 @@ db = client.get_default_database()
 requests_log = db['requests_log']
 messages_log = db['messages_log']
 apointnements_coll = db['apointnements_coll']
+doctors_coll = db['doctors_coll']
 
 def convert_to_dict(obj):
   """
@@ -156,39 +157,48 @@ def webhook():
             print(date_match.group())
             print(datetime.now())
             print(time.tzname)
+        if '/add_doctor' in inc_msg.text: 
+            input_add     = (re.search('\s\((.*?)\)\s', inc_msg.text).group()).split(';')
+            record_json={}
+            record_json['name']=input_add[0]
+            record_json['email']=input_add[1]
+            print(record_json)
+            doctors_coll.insert_one(record_json)
+
 
 
         return '', 200
   else:
       abort(400)
 
-class Config(object):
-    JOBS = [
-        {
-            'id': 'job1',
-            'func': 'jobs:job1',
-            'args': (1, 2),
-            'trigger': 'interval',
-            'seconds': 10
-        }
-    ]
+@app.route('/send_shedual/<date_match>',methods=['GET'])
+def send_shedual(date_match):
+    print(date_match)
+    """
+    start_date= datetime.strptime(date_match+ ' 06:00:00 am','%Y-%m-%d %I:%M:%S %p') #TODO dose this need to be set as global params ?
+    end_date  = datetime.strptime(date_match+ ' 10:00:00 pm','%Y-%m-%d %I:%M:%S %p') #TODO dose this need to be set as global params ?
+    today_appointments = apointnements_coll.find({'date_start': {'$lt': end_date, '$gte': start_date}})
+    
+    print(today_appointments)
+    i=0
+    for appointment in today_appointments:
+      formated_str='# Appointement :'+str(i+1)+'\n'
+      for key in appointment:
+        if key=='_id': 
+          continue
+        formated_str+= '* {:20} : {} \n'.format('**'+key+'**',str(appointment[key]))  #'* **'+key+'** ==' + str(appointment[key]) +'\n'
+      print(formated_str)
+      api_webexTeams.messages.create(inc_room_id,markdown=formated_str)
+      i=i+1
+    if i==0:
+      api_webexTeams.messages.create(inc_room_id,markdown='> No appoinetement at this day')
+    print(datetime.now())
+    """
+    return date_match, 200
 
-    SCHEDULER_API_ENABLED = True
-
-
-def job1(a, b):
-    print("this is the job runing")
 
 if __name__ == '__main__':
     try :
-        app.config.from_object(Config())
-
-        scheduler = APScheduler()
-        # it is also possible to enable the API directly
-        # scheduler.api_enabled = True     
-        scheduler.init_app(app)   
-        scheduler.start()
-
         app.run()
     except:
       #log the exceptions

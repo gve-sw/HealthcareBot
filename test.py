@@ -1,45 +1,22 @@
-#from datetime import datetime
-import datetime
-import pytz
-import time 
+from webexteamssdk import WebexTeamsAPI
 
-d = datetime.datetime.now()
-print(d)
-print(d.tzinfo)
-timezone = pytz.timezone("CET")
-d_aware = timezone.localize(d)
-print(d_aware)
-print(d_aware.tzinfo)
+api = WebexTeamsAPI()
+
+all_rooms = api.rooms.list()
+print("one ---------------")
+for room in all_rooms:
+	print(room.title)
+
+all_memberships=api.memberships.list()
+print("one ---------------")
+for memeber in all_memberships:
+	for element in memeber:
+		print(element+":"+memeber[element])
 
 
-print(time.tzname)
 
-"""
-import re,datetime
+special_membership=api.memberships.list(personEmail='agabdelb@cisco.com')
+print("one ---------------")
+for user in special_membership:
+	print(user.personId)
 
-s = "I have a meeting on 2018-12-10 in New York"
-match = re.search('\d{4}-\d{2}-\d{2}', s)
-print(match.group())
-print(type(match.group()))
-date = datetime.datetime.strptime(match.group(), '%Y-%m-%d').date()
-print(date)
-"""
-
-"""
-my_date="04/07/2019 08:00:00 p.m.".replace('.','')
-
-print(my_date)
-datetime_object = datetime.strptime(my_date, '%d/%m/%Y %I:%M:%S %p')
-print(datetime_object)
-"""
-"""
-dict={
-        'decade': '1970s',
-        'artist': 'Debby Boone',
-        'song': 'You Light Up My Life',
-        'weeksAtOne': 10
-    }
-
-if 'decassde' in dict :
-	print('hola')
-"""
