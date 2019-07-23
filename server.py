@@ -184,6 +184,7 @@ def send_shedual(date_match):
     doctors_records = doctors_coll.find({})
     for doctor in doctors_records:
       print(doctor['email'])
+      print(doctor['name'])
       
       start_date= datetime.strptime(date_match+ ' 06:00:00 am','%Y-%m-%d %I:%M:%S %p') #TODO dose this need to be set as global params ?
       end_date  = datetime.strptime(date_match+ ' 10:00:00 pm','%Y-%m-%d %I:%M:%S %p') #TODO dose this need to be set as global params ?
