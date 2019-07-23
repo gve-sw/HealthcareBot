@@ -85,7 +85,7 @@ def webhook():
               record_json={}
               line = record.split('|')
               if len(line)==32:
-                  record_json['field0']=line[0]
+                  record_json['name']=line[0]
                   record_json['field1']=line[1]
                   record_json['field2']=line[2]
                   record_json['field3']=line[3]
@@ -184,26 +184,26 @@ def send_shedual(date_match):
     doctors_records = doctors_coll.find({})
     for doctor in doctors_records:
       print(doctor['email'])
-    """
-    start_date= datetime.strptime(date_match+ ' 06:00:00 am','%Y-%m-%d %I:%M:%S %p') #TODO dose this need to be set as global params ?
-    end_date  = datetime.strptime(date_match+ ' 10:00:00 pm','%Y-%m-%d %I:%M:%S %p') #TODO dose this need to be set as global params ?
-    today_appointments = apointnements_coll.find({'date_start': {'$lt': end_date, '$gte': start_date}})
-    
-    print(today_appointments)
-    i=0
-    for appointment in today_appointments:
-      formated_str='# Appointement :'+str(i+1)+'\n'
-      for key in appointment:
-        if key=='_id': 
-          continue
-        formated_str+= '* {:20} : {} \n'.format('**'+key+'**',str(appointment[key]))  #'* **'+key+'** ==' + str(appointment[key]) +'\n'
-      print(formated_str)
-      api_webexTeams.messages.create(inc_room_id,markdown=formated_str)
-      i=i+1
-    if i==0:
-      api_webexTeams.messages.create(inc_room_id,markdown='> No appoinetement at this day')
-    print(datetime.now())
-    """
+      
+      start_date= datetime.strptime(date_match+ ' 06:00:00 am','%Y-%m-%d %I:%M:%S %p') #TODO dose this need to be set as global params ?
+      end_date  = datetime.strptime(date_match+ ' 10:00:00 pm','%Y-%m-%d %I:%M:%S %p') #TODO dose this need to be set as global params ?
+      today_appointments = apointnements_coll.find({'date_start': {'$lt': end_date, '$gte': start_date},'name':doctor['name']})
+      
+      print(today_appointments)
+      i=0
+      for appointment in today_appointments:
+        formated_str='# Appointement :'+str(i+1)+'\n'
+        for key in appointment:
+          if key=='_id': 
+            continue
+          formated_str+= '* {:20} : {} \n'.format('**'+key+'**',str(appointment[key]))  #'* **'+key+'** ==' + str(appointment[key]) +'\n'
+        print(formated_str)
+        api_webexTeams.messages.create(toPersonEmail=doctor['email'],markdown=formated_str)
+        i=i+1
+      if i==0:
+        api_webexTeams.messages.create(toPersonEmail=doctor['email'],markdown='> No appoinetement at this day')
+      print(datetime.now())
+      
     return date_match, 200
 
 
