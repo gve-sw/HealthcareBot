@@ -157,7 +157,10 @@ def webhook():
             print(date_match.group())
             print(datetime.now())
             print(time.tzname)
+
         if '/add_doctor' in inc_msg.text: 
+          try:
+
             print(inc_msg.text)
             input_add     = (re.search('\((.*?)\)', inc_msg.text)).group(1).split(';')
             record_json={}
@@ -165,6 +168,9 @@ def webhook():
             record_json['email']=input_add[1]
             print(record_json)
             doctors_coll.insert_one(record_json)
+            api_webexTeams.messages.create(inc_room_id,markdown='> Doctor added')
+          except:
+            api_webexTeams.messages.create(inc_room_id,markdown='> Error')
 
 
 
@@ -175,6 +181,9 @@ def webhook():
 @app.route('/send_shedual/<date_match>',methods=['GET'])
 def send_shedual(date_match):
     print(date_match)
+    doctors_records = doctors_coll.find({})
+    for doctor in doctors_records:
+      print(doctor['email'])
     """
     start_date= datetime.strptime(date_match+ ' 06:00:00 am','%Y-%m-%d %I:%M:%S %p') #TODO dose this need to be set as global params ?
     end_date  = datetime.strptime(date_match+ ' 10:00:00 pm','%Y-%m-%d %I:%M:%S %p') #TODO dose this need to be set as global params ?
