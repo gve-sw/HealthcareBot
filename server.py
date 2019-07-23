@@ -149,7 +149,7 @@ def webhook():
             if i==0:
               api_webexTeams.messages.create(inc_room_id,markdown='> No appoinetement at this day')
             print(datetime.now())
-            print(datetime.timezone)
+            #print(datetime.timezone)
         if '/set_shedual' in inc_msg.text: 
             date_match     = re.search('\s(\d{2}\:\d{2}\s?(?:AM|PM|am|pm))', inc_msg.text)#timezone ?
             #treshhold_date = datetime.strptime(date_match.group(),'%Y-%m-%d %I:%M:%S %p')
