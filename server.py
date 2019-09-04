@@ -85,38 +85,38 @@ def webhook():
               record_json={}
               line = record.split('|')
               if len(line)==32:
-                  record_json['name']=line[0]
-                  record_json['field1']=line[1]
-                  record_json['field2']=line[2]
-                  record_json['field3']=line[3]
-                  record_json['field4']=line[4]
+                  #record_json['name']=line[0]
+                  record_json['Treating Hospital']=line[1]
+                  #record_json['field2']=line[2]
+                  record_json['Treating Specialty']=line[3]
+                  record_json['Treating Service occasion']=line[4]
                   record_json['date_start']=datetime.strptime(line[5].replace('.',''), '%d/%m/%Y %I:%M:%S %p')#TODO add timezone everywhere
                   record_json['date_end']=datetime.strptime(line[6].replace('.',''), '%d/%m/%Y %I:%M:%S %p')#TODO add timezone everywhere
-                  record_json['field7']=line[7]
-                  record_json['field8']=line[8]
-                  record_json['field9']=line[9]
-                  record_json['field10']=line[10]
-                  record_json['field11']=line[11]
-                  record_json['field12']=line[12]
-                  record_json['field13']=line[13]
-                  record_json['field14']=line[14]
-                  record_json['field15']=line[15]
-                  record_json['field16']=line[16]
-                  record_json['field17']=line[17]
-                  record_json['field18']=line[18]
-                  record_json['field19']=line[19]
-                  record_json['field20']=line[20]
-                  record_json['field21']=line[21]
-                  record_json['field22']=line[22]
-                  record_json['field23']=line[23]
-                  record_json['field24']=line[24]
-                  record_json['field25']=line[25]
-                  record_json['field26']=line[26]
-                  record_json['field27']=line[27]
-                  record_json['field28']=line[28]
-                  record_json['field29']=line[29]  
-                  record_json['field30']=line[30]
-                  record_json['field31']=line[31]
+                  #record_json['field7']=line[7]
+                  record_json['Referral Hospital']=line[8]
+                  #record_json['field9']=line[9]
+                  record_json['Referral Specialty']=line[10]
+                  record_json['Referral Service occasion']=line[11]
+                  record_json['Referral Beginning']=line[12]
+                  record_json['Referral Ending']=line[13]
+                  #record_json['field14']=line[14]
+                  record_json['Treating Physician Name']=line[15]
+                  record_json['Treating Physician Last name']=line[16]
+                  #record_json['field17']=line[17]
+                  #record_json['field18']=line[18]
+                  record_json['Referral Physician Name']=line[19]
+                  record_json['Referral Physician Last name']=line[20]
+                  #record_json['field21']=line[21]
+                  record_json['Patient Social Security Number']=line[22]
+                  record_json['Patient Additional Social Security Number']=line[23]
+                  record_json['Patient Name']=line[24]
+                  record_json['Patient Last name']=line[25]
+                  record_json['Patient Surname']=line[26]
+                  record_json['Patient Birthdate']=line[27]
+                  #record_json['field28']=line[28]
+                  record_json['Patient Gender']=line[29]  
+                  record_json['Consultation Reason']=line[30]
+                  record_json['Diagnostic']=line[31]
                   apointnements_coll.insert_one(record_json)
               else:
                 #file io error at line N
@@ -127,6 +127,7 @@ def webhook():
           api_webexTeams.messages.create(inc_room_id,text='file processed')
         #print(inc_msg_txt)
         if '/today' in inc_msg.text: #if some one is cheking there today or tomo appointements
+            #TODO: add a controle based on the incoming message email to filter only appointements for this doctor
             date_match = re.search('\d{4}-\d{2}-\d{2}', inc_msg.text)
             #check for errors 
             #TODO add timezone everywhere
@@ -178,7 +179,7 @@ def webhook():
   else:
       abort(400)
 
-@app.route('/send_shedual/<date_match>',methods=['GET'])
+@app.route('/send_shedual/<date_match>',methods=['GET']) #this endpoint will be calledd by the shedualer to send the appointements to all users reguralrly 
 def send_shedual(date_match):
     print(date_match)
     doctors_records = doctors_coll.find({})
@@ -192,7 +193,7 @@ def send_shedual(date_match):
       
       print(today_appointments)
       i=0
-      api_webexTeams.messages.create(toPersonEmail=doctor['email'],markdown="Hi **"+doctor['email']+"** here is a list of your appointements today!")
+      api_webexTeams.messages.create(toPersonEmail=doctor['email'],markdown="Hi **"+doctor['name']+"** here is a list of your appointements today!")
       for appointment in today_appointments:
         formated_str='# Appointement :'+str(i+1)+'\n'
         for key in appointment:
